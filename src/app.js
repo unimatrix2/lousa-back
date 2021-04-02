@@ -21,7 +21,7 @@ app.use(cors({ origin: process.env.FRONT_END_URL }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(mongoSanitize());
 
-//app.use('/api', apiRoutes);
+app.use('/api', apiRoutes);
 
 app.use(handleError);
 app.use(handle404);
