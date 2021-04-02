@@ -16,19 +16,19 @@ export const createUser = async (body) => {
 	}
 };
 
-export const checkExistingUser = async (nickname) => {
+export const checkExistingUser = async (nickname, email) => {
 	try {
-		const user = await User.findOne({ nickname }, '_id');
+		const user = await User.findOne({ nickname, email }, '_id');
 		return { id: user._id };
 	} catch (e) {
 		return null;
 	}
 };
 
-export const getUser = async (id) => {
+export const getUser = async (query) => {
 	try {
-		const user = await User.findById(id, ['nickname', 'email']);
-		return { nickname: user.nickname, id: user._id };
+		const user = await User.findOne(query, ['nickname', 'email', 'password']);
+		return user;
 	} catch (e) {
 		throw new AppError({
 			message: 'User not found',
