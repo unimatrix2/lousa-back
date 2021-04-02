@@ -12,11 +12,7 @@ export const verify = async (password, hashed) => {
 		const validated = await compare(password, hashed);
 		return validated;
 	} catch (error) {
-		throw new AppError({
-			message: 'Incorrect Password',
-			type: 'Wrong-Passwd',
-			status: 401,
-		});
+		return false;
 	}
 };
 
@@ -47,4 +43,22 @@ export const validate = (token) => {
 			status: 401,
 		});
 	}
+};
+
+export const authResponse = (res, payload) => {
+	res.cookie('token', payload.token, {
+		maxAge: process.env.COOKIE_EXPIRY,
+		httpOnly: true,
+		signed: true,
+		sameSite: 'strict',
+		secure: true,
+	});
+	res.json(payload.user).status(200);
+};
+
+export const authBadResponse = (res, err) => {
+	res.json({
+		message: 'An error has occured, please try again later',
+		err,
+	}).status(err.status);
 };
