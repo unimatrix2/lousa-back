@@ -25,8 +25,10 @@ export const signupSchema = joi
 	.object(userSchemaValidation)
 	.options({ abortEarly: false });
 
-export const loginSchema = joi
-	.object({ nickname: userSchemaValidation.nickname, password: userSchemaValidation.password })
-	.options({ abortEarly: false });
+export const loginSchema = joi.object({
+	nickname: joi.string().min(5).max(20),
+	email: joi.string().email(),
+	password: joi.string().min(8).max(20).required(),
+});
 
 export const User = model('User', userSchema);
