@@ -7,7 +7,7 @@ import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import mongoConnect from './configs/db.config';
 import apiRoutes from './routes/api.routes';
-import { handleError, handle404 } from './middlewares/errorHandler';
+import handle404 from './middlewares/errorHandler';
 
 dotenv.config();
 
@@ -23,7 +23,6 @@ app.use(mongoSanitize());
 
 app.use('/api', apiRoutes);
 
-app.use(handleError);
 app.use(handle404);
 
 mongoConnect(process.env.MONGODB_URI);
