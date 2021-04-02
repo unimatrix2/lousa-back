@@ -20,10 +20,10 @@ export const verify = async (password, hashed) => {
 	}
 };
 
-export const authenticate = (user) => {
-	if (user) {
+export const authenticate = (id) => {
+	if (id) {
 		const token = jwt.sign(
-			{ id: user.id },
+			{ id },
 			process.env.TOKEN_SECRET,
 			{ expiresIn: process.env.TOKEN_EXPIRATION },
 		);

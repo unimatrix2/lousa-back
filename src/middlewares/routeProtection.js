@@ -1,7 +1,7 @@
 import AppError from '../errors/AppError';
 import { validate } from '../utils/authManager';
 
-export default function routeProtection(req, res, nxt) {
+const routeProtection = (req, res, nxt) => {
 	const { token } = req.signedCookies;
 	if (!token) {
 		throw new AppError({
@@ -15,4 +15,6 @@ export default function routeProtection(req, res, nxt) {
 		req.user = { id: decoded.id };
 	} catch (error) { return nxt(new AppError(error)); }
 	return nxt();
-}
+};
+
+export default routeProtection;

@@ -7,8 +7,8 @@ import postRoutes from './post/post.routes';
 const router = Router();
 
 router.use('/auth', authRoutes);
-router.use('/user', userRoutes);
 router.use(routeProtection);
+router.use('/user', userRoutes);
 router.use('/post', postRoutes);
 
 export default router;
