@@ -53,12 +53,12 @@ export const authResponse = (res, payload) => {
 		sameSite: 'strict',
 		secure: true,
 	});
-	res.json(payload.user).status(200);
+	res.status(200).json(payload.user);
 };
 
 export const authBadResponse = (res, err) => {
-	res.json({
+	res.status(err.status).json({
 		message: 'An error has occured, please try again later',
 		err,
-	}).status(err.status);
+	});
 };
