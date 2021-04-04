@@ -52,8 +52,7 @@ export const authResponse = (res, payload) => {
 		signed: true,
 		sameSite: 'strict',
 		secure: true,
-	});
-	res.status(200).json(payload.user);
+	}).status(200).json(payload.user);
 };
 
 export const authBadResponse = (res, err) => {
