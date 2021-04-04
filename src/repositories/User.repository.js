@@ -40,8 +40,8 @@ export const getUser = async (query) => {
 
 export const userTokenInfo = async (id) => {
 	try {
-		const user = await User.findById(id, { nickname: 1, email: 1, _id: 0 });
-		return user;
+		const user = await User.findById(id, ['nickname', 'email']);
+		return { nickname: user.nickname, email: user.email, id: user._id };
 	} catch (error) {
 		throw new AppError({
 			message: 'User not found',
