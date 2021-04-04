@@ -45,4 +45,9 @@ router.get('/token', async (req, res) => {
 	} catch (err) { res.status(err.status).json(err); }
 });
 
+router.get('/logout', (req, res) => {
+	res.clearCookie('token');
+	res.json({ message: 'User logged out' });
+});
+
 export default router;
