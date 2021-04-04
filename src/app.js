@@ -17,7 +17,7 @@ app.use(helmet());
 app.use(morgan('tiny'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors({ origin: process.env.FRONT_END_URL }));
+app.use(cors({ origin: process.env.FRONT_END_URL, credentials: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(mongoSanitize());
 
