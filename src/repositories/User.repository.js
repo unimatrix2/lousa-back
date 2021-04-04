@@ -10,7 +10,7 @@ export const createUser = async (body) => {
 	} catch (error) {
 		throw new AppError({
 			message: `${Object.keys(error.keyValue)} already exists`,
-			type: 'User-Repo-Create',
+			type: `User-Repo-Create-${Object.keys(error.keyValue)}`,
 			status: 400,
 		});
 	}
@@ -33,6 +33,19 @@ export const getUser = async (query) => {
 		throw new AppError({
 			message: 'User not found',
 			type: 'User-Repo-Get',
+			status: 400,
+		});
+	}
+};
+
+export const userTokenInfo = async (id) => {
+	try {
+		const user = await User.findById(id, { nickname: 1, email: 1, _id: 0 });
+		return user;
+	} catch (error) {
+		throw new AppError({
+			message: 'User not found',
+			type: 'User-Repo-Token-Info',
 			status: 400,
 		});
 	}
