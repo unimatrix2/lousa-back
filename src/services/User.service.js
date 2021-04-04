@@ -1,6 +1,11 @@
 /* eslint-disable import/prefer-default-export */
 import AppError from '../errors/AppError';
-import { createUser, checkExistingUser, getUser } from '../repositories/User.repository';
+import {
+	createUser,
+	checkExistingUser,
+	getUser,
+	userTokenInfo,
+} from '../repositories/User.repository';
 import { authenticate, encrypt, verify } from '../utils/authManager';
 import parser from '../mappers/loginBodyMapper';
 
@@ -45,7 +50,12 @@ export const login = async (body) => {
 			type: 'User-Invalid-Credentials',
 			status: 401,
 		});
-	} catch (error) {
-		throw new AppError(error);
-	}
+	} catch (error) { throw new AppError(error); }
+};
+
+export const getNewTokenInfo = async (id) => {
+	try {
+		const user = await userTokenInfo(id);
+		return user;
+	} catch (error) { throw new AppError(error); }
 };
