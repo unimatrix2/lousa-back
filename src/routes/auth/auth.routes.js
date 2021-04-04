@@ -32,8 +32,8 @@ router.use(routeProtection);
 router.get('/token', async (req, res) => {
 	try {
 		if (!req.error) {
-			const revalidated = authenticate(req.user.id);
 			const user = await getNewTokenInfo(req.user.id);
+			const revalidated = authenticate(user.id);
 			res.cookie('token', revalidated, {
 				maxAge: process.env.COOKIE_EXPIRY,
 				httpOnly: true,
@@ -42,7 +42,7 @@ router.get('/token', async (req, res) => {
 				secure: true,
 			}).status(200).json(user);
 		} else { throw new AppError(req.error); }
-	} catch (err) { res.status(err.status).json(err); }
+	} catch (err) { res.clearCookie('token').status(err.status).json(err); }
 });
 
 router.get('/logout', (req, res) => {
