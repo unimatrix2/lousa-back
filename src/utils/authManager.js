@@ -57,8 +57,5 @@ export const authResponse = (res, payload) => {
 };
 
 export const authBadResponse = (res, err) => {
-	res.status(err.status).json({
-		message: 'An error has occured, please try again later',
-		err,
-	});
+	res.status(err.status).json(err);
 };
