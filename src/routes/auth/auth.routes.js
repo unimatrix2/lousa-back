@@ -3,7 +3,6 @@ import { validateSignup, validateLogin } from '../../middlewares/authValidation'
 import { login, register, getNewTokenInfo } from '../../services/User.service';
 import { authResponse, authBadResponse, authenticate } from '../../utils/authManager';
 import routeProtection from '../../middlewares/routeProtection';
-import AppError from '../../errors/AppError';
 
 const router = Router();
 
@@ -31,23 +30,20 @@ router.use(routeProtection);
 
 router.get('/token', async (req, res) => {
 	try {
-		if (!req.error) {
-			const user = await getNewTokenInfo(req.user.id);
-			const revalidated = authenticate(user.id);
-			res.cookie('token', revalidated, {
-				maxAge: process.env.COOKIE_EXPIRY,
-				httpOnly: true,
-				signed: true,
-				sameSite: 'strict',
-				secure: true,
-			}).status(200).json(user);
-		} else { throw new AppError(req.error); }
+		const user = await getNewTokenInfo(req.user.id);
+		const revalidated = authenticate(user.id);
+		res.cookie('token', revalidated, {
+			maxAge: process.env.COOKIE_EXPIRY,
+			httpOnly: true,
+			signed: true,
+			sameSite: 'strict',
+			secure: true,
+		}).status(200).json(user);
 	} catch (err) { res.clearCookie('token').status(err.status).json(err); }
 });
 
 router.get('/logout', (req, res) => {
-	res.clearCookie('token');
-	res.json({ message: 'User logged out' });
+	res.clearCookie('token').status(200).json({ message: 'User logged out' });
 });
 
 export default router;
