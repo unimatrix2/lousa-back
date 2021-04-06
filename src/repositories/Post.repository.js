@@ -12,7 +12,7 @@ export const createPost = async (body) => {
 	} catch (error) {
 		throw new AppError({
 			message: 'Could not create post',
-			type: 'Post-Repo-Create',
+			type: 'Post-Create',
 			status: 400,
 		});
 	}
