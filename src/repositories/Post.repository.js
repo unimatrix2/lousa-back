@@ -37,7 +37,7 @@ export const getPosts = async (start) => {
 			{},
 			['content', 'owner'],
 			{ sort: { createdAt: -1 }, skip: start, limit: 10 }
-		);
+		).populate({ path: 'owner', select: 'nickname' });
 		return posts;
 	} catch (error) {
 		throw new AppError({
