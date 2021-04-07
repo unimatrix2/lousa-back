@@ -26,7 +26,11 @@ export const register = async (body) => {
 			password: await encrypt(body.password),
 		});
 		return {
-			user: { nickname: registered.nickname, email: registered.email },
+			user: {
+				nickname: registered.nickname,
+				email: registered.email,
+				id: registered.id,
+			},
 			token: authenticate(registered.id),
 		};
 	} catch (error) { throw new AppError(error); }
@@ -40,7 +44,11 @@ export const login = async (body) => {
 			const validation = await verify(body.password, user.password);
 			if (validation) {
 				return {
-					user: { nickname: user.nickname, email: user.email },
+					user: {
+						nickname: user.nickname,
+						email: user.email,
+						id: user.id,
+					},
 					token: authenticate(user.id),
 				};
 			}

@@ -28,7 +28,12 @@ export const checkExistingUser = async (nickname, email) => {
 export const getUser = async (query) => {
 	try {
 		const user = await User.findOne(query, ['nickname', 'email', 'password']);
-		return user;
+		return {
+			nickname: user.nickname,
+			email: user.email,
+			password: user.password,
+			id: user._id,
+		};
 	} catch (e) {
 		throw new AppError({
 			message: 'User not found',
