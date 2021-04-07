@@ -5,7 +5,8 @@ const router = Router();
 
 router.post('/create', async (req, res) => {
 	const { body } = req;
-	const post = await create(body);
+	const { id } = req.user;
+	const post = await create({ content: body.content, owner: id });
 	res.status(200).json(post);
 });
 
