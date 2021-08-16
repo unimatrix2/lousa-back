@@ -50,7 +50,7 @@ export const authResponse = (res, payload) => {
 		maxAge: process.env.COOKIE_EXPIRY,
 		httpOnly: true,
 		signed: true,
-		sameSite: 'strict',
+		sameSite: 'none',
 		secure: true,
 	}).status(200).json(payload.user);
 };
