@@ -36,7 +36,7 @@ router.get('/token', async (req, res) => {
 			maxAge: process.env.COOKIE_EXPIRY,
 			httpOnly: true,
 			signed: true,
-			sameSite: 'strict',
+			sameSite: 'none',
 			secure: true,
 		}).status(200).json(user);
 	} catch (err) { res.clearCookie('token').status(err.status).json(err); }
