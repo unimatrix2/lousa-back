@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import joi from '@hapi/joi';
+import joi from 'joi';
 
 // DB Schema
 const userSchema = new Schema({
